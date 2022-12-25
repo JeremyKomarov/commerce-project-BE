@@ -7,14 +7,18 @@ public class Customer {
     private String email;
     private String phoneNumber;
     private String address;
+    private String username;
+    private String password;
 
-    public Customer(Long id, String firstName, String lastName, String email, String phoneNumber, String address) {
+    public Customer(Long id, String firstName, String lastName, String email, String phoneNumber, String address,String username , String password) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.address = address;
+        this.username = username;
+        this.password = password;
     }
 
     public Long getId() {
@@ -41,6 +45,14 @@ public class Customer {
         return address;
     }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
     public void setId(Long id) {
         this.id = id;
     }
@@ -63,5 +75,13 @@ public class Customer {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

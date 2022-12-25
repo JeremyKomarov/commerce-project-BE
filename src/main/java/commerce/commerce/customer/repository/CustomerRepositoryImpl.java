@@ -1,6 +1,7 @@
 package commerce.commerce.customer.repository;
 
 import commerce.commerce.customer.model.Customer;
+import commerce.commerce.customer.model.CustomerRequest;
 import commerce.commerce.customer.repository.mapper.CustomerMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -16,8 +17,8 @@ public class CustomerRepositoryImpl implements CustomerRepository {
 
     @Override
     public void createCustomer(Customer customer) {
-        String sql = "INSERT INTO " + CUSTOMERS_TABLE_NAME + " (first_name, last_name, email, phone_number, address) VALUES (?, ?, ?, ?, ?)";
-        jdbcTemplate.update(sql, customer.getFirstName(), customer.getLastName(), customer.getEmail(), customer.getPhoneNumber(), customer.getAddress());
+        String sql = "INSERT INTO " + CUSTOMERS_TABLE_NAME + " (first_name, last_name, email, phone_number, username, password, address) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        jdbcTemplate.update(sql, customer.getFirstName(), customer.getLastName(), customer.getEmail(), customer.getPhoneNumber(), customer.getUsername(), customer.getPassword(), customer.getAddress());
     }
 
     @Override
@@ -32,9 +33,9 @@ public class CustomerRepositoryImpl implements CustomerRepository {
 
     @Override
     public void updateCustomerById(Long id, Customer customer) {
-        String sql = "UPDATE " + CUSTOMERS_TABLE_NAME + " SET first_name=?, last_name=?, email=?, phone_number=?, address=? " +
+        String sql = "UPDATE " + CUSTOMERS_TABLE_NAME + " SET first_name=?, last_name=?, email=?, phone_number=?, username=?, password=?, address=? " +
                 "WHERE id=?";
-        jdbcTemplate.update(sql, customer.getFirstName(), customer.getLastName(), customer.getEmail(), customer.getPhoneNumber(), customer.getAddress(), id);
+        jdbcTemplate.update(sql, customer.getFirstName(), customer.getLastName(), customer.getEmail(), customer.getPhoneNumber(), customer.getUsername(), customer.getPassword(), customer.getAddress(), id);
     }
 
     @Override
@@ -42,4 +43,15 @@ public class CustomerRepositoryImpl implements CustomerRepository {
         String sql = "DELETE FROM " + CUSTOMERS_TABLE_NAME + " WHERE id=?";
         jdbcTemplate.update(sql,id);
     }
+
+    @Override
+    public Customer getCustomerByUsername(String username) {
+        String sql = "SELECT * FROM " + CUSTOMERS_TABLE_NAME + " WHERE username=?";
+        try {
+            return jdbcTemplate.queryForObject(sql, new CustomerMapper(), username);
+        } catch (EmptyResultDataAccessException error) {
+            return null;
+        }
+    }
+
 }
