@@ -9,4 +9,5 @@ public interface CustomerRepository {
     void updateCustomerById(Long id, Customer customer);
     void deleteCustomerById(Long id);
     Customer getCustomerByUsername(String username);
+    Customer getCustomerByEmail(String email);
 }

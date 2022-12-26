@@ -16,7 +16,7 @@ public class CustomerController {
     CustomerService customerService;
     @CrossOrigin
     @PostMapping(value = "/create")
-    public void createCustomer(@RequestBody Customer customer){
+    public void createCustomer(@RequestBody Customer customer) throws Exception {
         customerService.createCustomer(customer);
     }
     @CrossOrigin
@@ -40,11 +40,16 @@ public class CustomerController {
     public Customer getCustomerByUsername(@PathVariable String username){
         return customerService.getCustomerByUsername(username);
     }
+
+    @CrossOrigin
+    @GetMapping(value = "/email/{email}")
+    public Customer getCustomerByEmail(@PathVariable String email){
+        return customerService.getCustomerByEmail(email);
+    }
+
     @CrossOrigin
     @PostMapping(value = "/login")
     public Customer loginCustomer(@RequestBody CustomerRequest customerRequest) throws Exception {
-        System.out.println(customerRequest.getUsername());
-        System.out.println(customerRequest.getPassword());
         return customerService.loginCustomer(customerRequest);
     }
 

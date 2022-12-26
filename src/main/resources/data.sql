@@ -37,8 +37,8 @@ CREATE TABLE favorite_items (
 );
 
 INSERT INTO customers (first_name, last_name, email, phone_number, address, username, password) VALUES
-    ('jeremy', 'komarov', 'jeremy@gmail.com', '0528420101', 'Ramat Gan, Israel', 'jeremy', 'q1w2e3r4'),
-    ('sapir', 'zadik', 'sapir@gmail.com', '0528420101', 'Ramat Gan, Israel','sapir', 'q1w2e3r4');
+    ('jeremy', 'komarov', 'jeremy@gmail.com', '0528420101', 'Ramat Gan, Israel', 'jeremy', 'I*u7y6t5'),
+    ('sapir', 'zadik', 'sapir@gmail.com', '0528420101', 'Ramat Gan, Israel','sapir', 'u7y6t5');
 
 INSERT INTO items (name, description, price, img, quantity) VALUES
     ('basketball', 'super basketball', 25.50, 'https://www.wilson.com/sites/default/files/EXPLORE_640X640_nba.jpg?', 25),

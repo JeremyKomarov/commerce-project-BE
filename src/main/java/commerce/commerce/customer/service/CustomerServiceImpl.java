@@ -12,8 +12,22 @@ public class CustomerServiceImpl implements CustomerService {
     CustomerRepository customerRepository;
 
     @Override
-    public void createCustomer(Customer customer) {
-        customerRepository.createCustomer(customer);
+    public void createCustomer(Customer customer) throws Exception {
+        if (customer != null){
+            Customer customerByUsername = customerRepository.getCustomerByUsername(customer.getUsername());
+            if (customerByUsername == null ){
+                Customer customerByEmail = customerRepository.getCustomerByEmail(customer.getEmail());
+                if (customerByEmail == null){
+                    customerRepository.createCustomer(customer);
+                }else {
+                    throw new Exception("Email is taken");
+                }
+            }else {
+             throw new Exception("Username Taken");
+            }
+        }else {
+            throw new Exception("Given customer is null");
+        }
     }
 
     @Override
@@ -34,6 +48,11 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public Customer getCustomerByUsername(String username) {
         return customerRepository.getCustomerByUsername(username);
+    }
+
+    @Override
+    public Customer getCustomerByEmail(String email) {
+        return customerRepository.getCustomerByEmail(email);
     }
 
 

@@ -54,4 +54,15 @@ public class CustomerRepositoryImpl implements CustomerRepository {
         }
     }
 
+    @Override
+    public Customer getCustomerByEmail(String email) {
+        String sql = "SELECT * FROM " + CUSTOMERS_TABLE_NAME + " WHERE email=?";
+        try {
+            return jdbcTemplate.queryForObject(sql, new CustomerMapper(), email);
+        } catch (EmptyResultDataAccessException error) {
+            return null;
+        }
+    }
+
+
 }
