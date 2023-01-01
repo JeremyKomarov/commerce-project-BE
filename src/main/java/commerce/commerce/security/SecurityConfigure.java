@@ -33,7 +33,7 @@ public class SecurityConfigure extends WebSecurityConfigurerAdapter {
                 .headers().frameOptions().disable()
                 .authorizeRequests().antMatchers("/authenticate").permitAll()
                 .antMatchers("/customer/create").permitAll()
-                .antMatchers("/item/all").permitAll()
+                .antMatchers("/product/all").permitAll()
                 .antMatchers("/h2-console/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
