@@ -3,15 +3,17 @@ package commerce.commerce.model.inventory;
 public class Product {
     private Long id;
     private String name;
-    private String description;
+    private String viewDescription;
+    private String fullDescription;
     private Double price;
     private String img;
     private Long quantity;
 
-    public Product(Long id, String name, String description, Double price, String img, Long quantity) {
+    public Product(Long id, String name, String viewDescription,String fullDescription , Double price, String img, Long quantity) {
         this.id = id;
         this.name = name;
-        this.description = description;
+        this.viewDescription = viewDescription;
+        this.fullDescription = fullDescription;
         this.price = price;
         this.img = img;
         this.quantity = quantity;
@@ -25,8 +27,12 @@ public class Product {
         return name;
     }
 
-    public String getDescription() {
-        return description;
+    public String getViewDescription() {
+        return viewDescription;
+    }
+
+    public String getFullDescription() {
+        return fullDescription;
     }
 
     public Double getPrice() {
@@ -49,8 +55,12 @@ public class Product {
         this.name = name;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setViewDescription(String viewDescription) {
+        this.viewDescription = viewDescription;
+    }
+
+    public void setFullDescription(String fullDescription) {
+        this.fullDescription = fullDescription;
     }
 
     public void setPrice(Double price) {

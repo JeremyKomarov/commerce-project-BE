@@ -20,7 +20,8 @@ CREATE TABLE customers (
 CREATE TABLE products (
     id int(11) unsigned NOT NULL AUTO_INCREMENT,
     name varchar(300) NOT NULL,
-    description varchar(max) NOT NULL,
+    view_description varchar(max) NOT NULL,
+    full_description varchar(max) NOT NULL,
     price double(11) NOT NULL,
     img varchar(300) NOT NULL,
     quantity int(11) NOT NULL,
@@ -67,16 +68,17 @@ INSERT INTO customers (first_name, last_name, email, phone_number, address, user
     ('jeremy', 'komarov', 'jeremy@gmail.com', '0528420101', 'Ramat Gan, Israel', 'jeremy', 'I*u7y6t5'),
     ('sapir', 'zadik', 'sapir@gmail.com', '0528420101', 'Ramat Gan, Israel','sapir', 'u7y6t5');
 
-INSERT INTO products (name, description, price, img, quantity) VALUES
-    ('basketball', 'super basketball', 25.50, 'https://www.wilson.com/sites/default/files/EXPLORE_640X640_nba.jpg?', 25),
-    ('soccer  ball', 'some kick ass brand new soccer', 10.50, 'https://t3.ftcdn.net/jpg/00/92/53/50/360_F_92535040_OeiYmHwr6lzZn5cdd71abCl67I9NsSe7.jpg?', 14),
-    ('tennis ball', 'super tennis ball', 13.50, 'https://upload.wikimedia.org/wikipedia/commons/4/41/Closeup_of_a_tennis_ball_%282%29.jpg', 0),
-    ('basketball', 'super basketball', 25.50, 'https://www.wilson.com/sites/default/files/EXPLORE_640X640_nba.jpg?', 25),
-    ('soccer  ball', 'some kick ass brand new soccer', 10.50, 'https://t3.ftcdn.net/jpg/00/92/53/50/360_F_92535040_OeiYmHwr6lzZn5cdd71abCl67I9NsSe7.jpg?', 14),
-    ('tennis ball', 'super tennis ball', 13.50, 'https://upload.wikimedia.org/wikipedia/commons/4/41/Closeup_of_a_tennis_ball_%282%29.jpg', 0),
-    ('basketball', 'super basketball', 25.50, 'https://www.wilson.com/sites/default/files/EXPLORE_640X640_nba.jpg?', 25),
-    ('soccer  ball', 'some kick ass brand new soccer', 10.50, 'https://t3.ftcdn.net/jpg/00/92/53/50/360_F_92535040_OeiYmHwr6lzZn5cdd71abCl67I9NsSe7.jpg?', 14),
-    ('tennis ball', 'super tennis ball', 13.50, 'https://upload.wikimedia.org/wikipedia/commons/4/41/Closeup_of_a_tennis_ball_%282%29.jpg', 0);
+INSERT INTO products (name, view_description, full_description, price, img, quantity) VALUES
+    ('Mitre Sabre Rugby Ball', 'The Mitre Sabre rugby ball represents amazing value for money', 'The Mitre Sabre rugby ball represents amazing value for money. This attractive rugby ball has a unique design and is suitable for rugby players of all ages and experience levels' , 25.50, 'https://www.sportsballshop.co.uk/acatalog/SabreRedWhite.jpg', 25),
+    ('Rhino Cyclone Rugby Ball', 'The Rhino Cyclone rugby balls is a great quality training', 'Rhino have an amazing reputation for producing rugby balls to a high specification and the Cyclone is no differnt. The ball has a durable 3 dimensional grip which makes the ball last longer and is suitable for use in all weather conditions.' ,10.50, 'https://www.sportsballshop.co.uk/acatalog/CycloneSingle.jpg', 14),
+    ('Baden Equalizer Basketball', 'A high quality synthetic leather match ball that is designed for indoor and outdoor use in schools and clubs', 'This aesthetically pleasing basketball features the impressive ultra-grip technology which improves handling and accuracy.' , 13.50, 'https://www.sportsballshop.co.uk/acatalog/BadenEqualizer.jpg', 0),
+    ('Molten BG4500 Indoor Basketball', 'The latest basketball to hit the courts is the new Molten BG4500 ball which is the exact ball used in the BBL', 'The new model has a completely different grip which has been applied to all of the new models rolling out over 2020/21. The BG4500 ball has a premium grade official composite leather textured surface and is available in size 6 and 7. The new style surface gives the player a far better chance to grip the ball as the surface area is 95% greater.' , 25.50, 'https://www.sportsballshop.co.uk/acatalog/BG4500.jpg', 25),
+    ('Kookaburra County Club Cricket Ball', 'The Kookaburra County Club cricket ball, is the best selling cricket ball from the Kookaburra range', 'This ball has been tested for durability and has come through as very highly recommended. This cricket ball has the Kookaburra stamp of quality and is already proving popular with clubs and schools.' , 10.50, 'https://www.sportsballshop.co.uk/acatalog/KookaburraCountyClub1.jpg', 14),
+    ('GM Skills Training Cricket Ball', 'New Lower Price, making this even better value for clubs, schools and coaches.', 'The Gunn & Moore Skills cricket balls have a PVC outer and contain a specially formulated core. The skills ball is designed to aid cricketers, of all ages to develop their technique, skills and confidence. The durable raised seam gives the feel of a real cricket ball but the pvc outer ensures it is safer to use.' , 13.50, 'https://www.sportsballshop.co.uk/acatalog/GMBucket2.jpg', 0),
+    ('I-Pro Galaxy  Soccer', 'The I-Pro Galaxy match football is a high quality ball and is the perfect ball for use in clubs and schools across the UK.', 'The I-Pro Galaxy match football is a high quality ball and is the perfect ball for use in clubs and schools across the UK. The Galaxy is constructed using TPU and is fully waterproof. This hard wearing match ball is available in sizes 4 and 5.' , 25.50, 'https://www.sportsballshop.co.uk/acatalog/Galaxy1.jpg', 25),
+    ('PT Rotario Match Soccer', 'The range of match footballs from Precision Training include the NEW FIFA Quality Precision Rotario match ball.', 'The range of match footballs from Precision Training include the NEW FIFA Quality Precision Rotario match ball. This ball is available in size 5 and is one of the highest spec balls from Precision Training which has seen a further upgrade in 2020.' , 10.50, 'https://www.sportsballshop.co.uk/acatalog/Rotario20.jpg', 14),
+    ('Gilbert High 5 Netball', 'The Gilbert High 5 ball is an entry level ball for children aged between 9-11 years.', 'The Gilbert High 5 ball is an entry level ball for children aged between 9-11 years. Only available in a size 4 and is designed for use in schools.' , 9.50, 'https://www.sportsballshop.co.uk/acatalog/GilbertHigh5NETBALL.jpg', 15),
+    ('Mitre Oasis Training Netball', 'The Mitre Oasis Training Netball is a greta value entry level netball that is suitable for use on all surfaces.', 'The Mitre Oasis Training Netball is a greta value entry level netball that is suitable for use on all surfaces. The Oasis is a rubber netball and is available in 2 colours - Pink and Orange. These balls are currently only available in size 5.' , 13.50, 'https://www.sportsballshop.co.uk/acatalog/Oasis-Orange.jpg', 0);
 
 INSERT INTO favorite_products (customer_id, product_id) VALUES
     (1, 1),

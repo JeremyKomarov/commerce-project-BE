@@ -17,8 +17,8 @@ public class ProductRepositoryImpl implements ProductRepository {
     private JdbcTemplate jdbcTemplate;
     @Override
     public void createProduct(Product product) {
-        String sql = "INSERT INTO " + PRODUCTS_TABLE_NAME + " (name, description, price, img, quantity) VALUES (?, ?, ?, ?, ?)";
-        jdbcTemplate.update(sql, product.getName(), product.getDescription(), product.getPrice(), product.getImg(), product.getQuantity());
+        String sql = "INSERT INTO " + PRODUCTS_TABLE_NAME + " (name, view_description, full_description, price, img, quantity) VALUES (?, ?, ?, ?, ?)";
+        jdbcTemplate.update(sql, product.getName(), product.getViewDescription(), product.getFullDescription(), product.getPrice(), product.getImg(), product.getQuantity());
     }
 
     @Override
@@ -33,9 +33,9 @@ public class ProductRepositoryImpl implements ProductRepository {
 
     @Override
     public void updateProductById(Long id, Product product) {
-        String sql = "UPDATE " + PRODUCTS_TABLE_NAME + " SET name=?, description=?, price=?, img=?, quantity=? " +
+        String sql = "UPDATE " + PRODUCTS_TABLE_NAME + " SET name=?, view_description=?, full_description=?, price=?, img=?, quantity=? " +
                 "WHERE id=?";
-        jdbcTemplate.update(sql, product.getName(), product.getDescription(), product.getPrice(), product.getImg(), product.getQuantity(), id);
+        jdbcTemplate.update(sql, product.getName(), product.getViewDescription(), product.getFullDescription(), product.getPrice(), product.getImg(), product.getQuantity(), id);
     }
 
     @Override
