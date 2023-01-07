@@ -1,6 +1,5 @@
 package commerce.commerce.repository.order;
 
-import commerce.commerce.model.inventory.Product;
 import commerce.commerce.model.order.Order;
 
 public interface OrderRepository {
