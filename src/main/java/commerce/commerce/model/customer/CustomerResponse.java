@@ -1,6 +1,6 @@
 package commerce.commerce.model.customer;
 
-public class Customer {
+public class CustomerResponse {
     private Long id;
     private String firstName;
     private String lastName;
@@ -8,9 +8,8 @@ public class Customer {
     private String phoneNumber;
     private String address;
     private String username;
-    private String password;
 
-    public Customer(Long id, String firstName, String lastName, String email, String phoneNumber, String address,String username , String password) {
+    public CustomerResponse(Long id, String firstName, String lastName, String email, String phoneNumber, String address, String username) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -18,7 +17,6 @@ public class Customer {
         this.phoneNumber = phoneNumber;
         this.address = address;
         this.username = username;
-        this.password = password;
     }
 
     public Long getId() {
@@ -49,10 +47,6 @@ public class Customer {
         return username;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
     public void setId(Long id) {
         this.id = id;
     }
@@ -79,21 +73,5 @@ public class Customer {
 
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public CustomerResponse toCustomerResponse(){
-        return new CustomerResponse(
-                this.id,
-                this.firstName,
-                this.lastName,
-                this.email,
-                this.phoneNumber,
-                this.address,
-                this.username
-        );
     }
 }
