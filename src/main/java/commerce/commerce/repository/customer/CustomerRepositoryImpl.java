@@ -1,6 +1,7 @@
 package commerce.commerce.repository.customer;
 
 import commerce.commerce.model.customer.Customer;
+import commerce.commerce.model.customer.CustomerProfileResponse;
 import commerce.commerce.repository.customer.mapper.CustomerMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -62,6 +63,5 @@ public class CustomerRepositoryImpl implements CustomerRepository {
             return null;
         }
     }
-
 
 }

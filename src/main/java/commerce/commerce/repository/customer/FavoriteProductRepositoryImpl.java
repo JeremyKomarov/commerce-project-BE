@@ -50,7 +50,7 @@ public class FavoriteProductRepositoryImpl implements FavoriteProductRepository 
 
     @Override
     public List<Product> getAllFavoriteProductsByCustomerId(Long customerId) {
-        String sql = "SELECT I.id, I.name, I.description, I.price, I.img, I.quantity FROM " + FAVORITE_PRODUCTS_TABLE_NAME +
+        String sql = "SELECT I.id, I.name, I.view_description, I.full_description, I.price, I.img, I.quantity FROM " + FAVORITE_PRODUCTS_TABLE_NAME +
                 " INNER JOIN " + PRODUCTS_TABLE_NAME + " AS I ON product_id = I.id WHERE customer_id=?";
         try {
             return jdbcTemplate.query(sql, new ProductMapper(), customerId);

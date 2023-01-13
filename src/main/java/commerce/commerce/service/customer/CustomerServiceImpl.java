@@ -1,14 +1,22 @@
 package commerce.commerce.service.customer;
 
 import commerce.commerce.model.customer.Customer;
+import commerce.commerce.model.customer.CustomerProfileResponse;
+import commerce.commerce.model.inventory.Product;
 import commerce.commerce.repository.customer.CustomerRepository;
+import commerce.commerce.repository.customer.FavoriteProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
     @Autowired
     CustomerRepository customerRepository;
+
+    @Autowired
+    FavoriteProductService favoriteProductService;
 
     @Override
     public void createCustomer(Customer customer) throws Exception {
@@ -48,10 +56,20 @@ public class CustomerServiceImpl implements CustomerService {
     public Customer getCustomerByUsername(String username) {
         return customerRepository.getCustomerByUsername(username);
     }
-
     @Override
     public Customer getCustomerByEmail(String email) {
         return customerRepository.getCustomerByEmail(email);
+    }
+
+    @Override
+    public CustomerProfileResponse getCustomerProfile(String username) {
+        Customer curCustomer = customerRepository.getCustomerByUsername(username);
+        List<Product> curProducts = favoriteProductService.getAllFavoriteProductsByCustomerId(curCustomer.getId());
+        CustomerProfileResponse existCustomerProfile = new CustomerProfileResponse(
+                curCustomer,
+                curProducts
+        );
+        return existCustomerProfile;
     }
 }
 

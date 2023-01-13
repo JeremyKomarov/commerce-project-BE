@@ -1,6 +1,7 @@
 package commerce.commerce.controller.customer;
 
 import commerce.commerce.model.customer.Customer;
+import commerce.commerce.model.customer.CustomerProfileResponse;
 import commerce.commerce.service.customer.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -42,6 +43,12 @@ public class CustomerController {
     @GetMapping(value = "/email/{email}")
     public Customer getCustomerByEmail(@PathVariable String email){
         return customerService.getCustomerByEmail(email);
+    }
+
+    @CrossOrigin
+    @GetMapping(value = "/profile/{username}")
+    public CustomerProfileResponse getCustomerProfile(@PathVariable String username){
+        return customerService.getCustomerProfile(username);
     }
 
 }

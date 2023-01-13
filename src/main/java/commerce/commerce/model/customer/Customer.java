@@ -85,15 +85,4 @@ public class Customer {
         this.password = password;
     }
 
-    public CustomerResponse toCustomerResponse(){
-        return new CustomerResponse(
-                this.id,
-                this.firstName,
-                this.lastName,
-                this.email,
-                this.phoneNumber,
-                this.address,
-                this.username
-        );
-    }
 }

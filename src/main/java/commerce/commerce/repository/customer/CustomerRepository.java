@@ -1,6 +1,7 @@
 package commerce.commerce.repository.customer;
 
 import commerce.commerce.model.customer.Customer;
+import commerce.commerce.model.customer.CustomerProfileResponse;
 
 public interface CustomerRepository {
     void createCustomer(Customer customer);
