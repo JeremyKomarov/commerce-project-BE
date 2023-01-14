@@ -15,9 +15,10 @@ public class OrderRepositoryImpl implements OrderRepository {
     private JdbcTemplate jdbcTemplate;
 
     @Override
-    public void createOrder(Order order) {
+    public Long createOrder(Order order) {
         String sql = "INSERT INTO " + ORDERS_TABLE_NAME + " (customer_id, order_date, shipping_address, total_products, total_price, status) VALUES (?, ?, ?, ?, ?, ?)";
         jdbcTemplate.update(sql, order.getCustomerId(), order.getOrderDate(), order.getShippingAddress(), order.getTotalProducts(), order.getTotalPrice(), order.getStatus());
+        return jdbcTemplate.queryForObject("SELECT LAST_INSERT_ID();", Long.class);
     }
 
     @Override

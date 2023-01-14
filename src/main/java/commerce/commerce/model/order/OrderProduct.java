@@ -3,13 +3,15 @@ package commerce.commerce.model.order;
 public class OrderProduct {
 
     private Long id;
+    private Long customerId;
     private Long orderId;
     private Long productId;
     private Long quantity;
     private Long price;
 
-    public OrderProduct(Long id, Long orderId, Long productId, Long quantity, Long price) {
+    public OrderProduct(Long id, Long customerId, Long orderId, Long productId, Long quantity, Long price) {
         this.id = id;
+        this.customerId = customerId;
         this.orderId = orderId;
         this.productId = productId;
         this.quantity = quantity;
@@ -18,6 +20,10 @@ public class OrderProduct {
 
     public Long getId() {
         return id;
+    }
+
+    public Long getCustomerId() {
+        return customerId;
     }
 
     public Long getOrderId() {
@@ -38,6 +44,10 @@ public class OrderProduct {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public void setCustomerId(Long customerId) {
+        this.customerId = customerId;
     }
 
     public void setOrderId(Long orderId) {

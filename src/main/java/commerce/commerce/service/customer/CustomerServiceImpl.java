@@ -3,8 +3,10 @@ package commerce.commerce.service.customer;
 import commerce.commerce.model.customer.Customer;
 import commerce.commerce.model.customer.CustomerProfileResponse;
 import commerce.commerce.model.inventory.Product;
+import commerce.commerce.model.order.OrderProduct;
 import commerce.commerce.repository.customer.CustomerRepository;
-import commerce.commerce.repository.customer.FavoriteProductRepository;
+import commerce.commerce.service.inventory.ProductService;
+import commerce.commerce.service.order.OrderProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,9 +16,12 @@ import java.util.List;
 public class CustomerServiceImpl implements CustomerService {
     @Autowired
     CustomerRepository customerRepository;
-
     @Autowired
     FavoriteProductService favoriteProductService;
+    @Autowired
+    OrderProductService orderProductService;
+    @Autowired
+    ProductService productService;
 
     @Override
     public void createCustomer(Customer customer) throws Exception {
@@ -64,10 +69,13 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public CustomerProfileResponse getCustomerProfile(String username) {
         Customer curCustomer = customerRepository.getCustomerByUsername(username);
-        List<Product> curProducts = favoriteProductService.getAllFavoriteProductsByCustomerId(curCustomer.getId());
+        List<Product> curFavoriteProducts = favoriteProductService.getAllFavoriteProductsByCustomerId(curCustomer.getId());
+        List<Product> curCartProducts = orderProductService.getAllOrderProductsByCustomerId(curCustomer.getId());
+
         CustomerProfileResponse existCustomerProfile = new CustomerProfileResponse(
                 curCustomer,
-                curProducts
+                curFavoriteProducts,
+                curCartProducts
         );
         return existCustomerProfile;
     }

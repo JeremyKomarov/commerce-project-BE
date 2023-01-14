@@ -11,6 +11,7 @@ public class OrderProductMapper implements RowMapper<OrderProduct> {
     public OrderProduct mapRow(ResultSet rs, int rowNum) throws SQLException {
         return new OrderProduct(
                 rs.getLong("id"),
+                rs.getLong("customer_id"),
                 rs.getLong("order_id"),
                 rs.getLong("product_id"),
                 rs.getLong("quantity"),

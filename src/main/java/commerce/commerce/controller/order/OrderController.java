@@ -14,8 +14,8 @@ public class OrderController {
 
     @CrossOrigin
     @PostMapping(value = "/create")
-    public void createOrder(@RequestBody Order order) throws Exception {
-        orderService.createOrder(order);
+    public Long createOrder(@RequestBody Order order) throws Exception {
+        return orderService.createOrder(order);
     }
     @CrossOrigin
     @GetMapping(value = "/{id}")

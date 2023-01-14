@@ -54,6 +54,7 @@ create TABLE orders (
 
 create TABLE order_products (
     id int(11) unsigned NOT NULL AUTO_INCREMENT,
+    customer_id int(11) NOT NULL,
     order_id int(11),
     product_id int(11) NOT NULL,
     quantity int(11),
@@ -61,6 +62,7 @@ create TABLE order_products (
 
     PRIMARY KEY (id),
     FOREIGN KEY (order_id) REFERENCES orders(id),
+    FOREIGN KEY (customer_id) REFERENCES customers(id),
     FOREIGN KEY (product_id) REFERENCES products(id),
 );
 

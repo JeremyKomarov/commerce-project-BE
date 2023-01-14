@@ -1,11 +1,15 @@
 package commerce.commerce.repository.order;
 
+import commerce.commerce.model.inventory.Product;
 import commerce.commerce.model.order.OrderProduct;
+import commerce.commerce.repository.inventory.mapper.ProductMapper;
 import commerce.commerce.repository.order.mapper.OrderProductMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 public class OrderProductRepositoryImpl implements OrderProductRepository {
@@ -13,11 +17,13 @@ public class OrderProductRepositoryImpl implements OrderProductRepository {
     private JdbcTemplate jdbcTemplate;
 
     private static final String ORDER_PRODUCTS_TABLE_NAME = "order_products";
+    private static final String PRODUCTS_TABLE_NAME = "products";
+
 
     @Override
     public void createOrderProduct(OrderProduct orderProduct) {
-        String sql = "INSERT INTO " + ORDER_PRODUCTS_TABLE_NAME + " (order_id, product_id, quantity, price) VALUES (?, ?, ?, ?)";
-        jdbcTemplate.update(sql, orderProduct.getOrderId(), orderProduct.getProductId(), orderProduct.getQuantity(), orderProduct.getPrice());
+        String sql = "INSERT INTO " + ORDER_PRODUCTS_TABLE_NAME + " (order_id, customer_id, product_id, quantity, price) VALUES (?, ?, ?, ?, ?)";
+        jdbcTemplate.update(sql, orderProduct.getOrderId(), orderProduct.getCustomerId() , orderProduct.getProductId(), orderProduct.getQuantity(), orderProduct.getPrice());
     }
 
     @Override
@@ -37,6 +43,23 @@ public class OrderProductRepositoryImpl implements OrderProductRepository {
 
     @Override
     public void deleteOrderProductById(Long id) {
-
     }
+
+    @Override
+    public List<Product> getAllOrderProductsByCustomerId(Long customerId) {
+        String sql = "SELECT * FROM " + PRODUCTS_TABLE_NAME + " AS P INNER  JOIN " + ORDER_PRODUCTS_TABLE_NAME + " AS OP ON " +
+                "P.id = OP.product_id WHERE OP.customer_id=?";
+        try {
+            return jdbcTemplate.query(sql, new ProductMapper(), customerId);
+        } catch (EmptyResultDataAccessException error) {
+            return null;
+        }
+    }
+
+    public void updateOrderIdByCustomerId(Long customerId, Long orderId) {
+        String sql = "UPDATE " + ORDER_PRODUCTS_TABLE_NAME +" SET order_id = ? WHERE customer_id = ?";
+        jdbcTemplate.update(sql, orderId, customerId);
+    }
+
+
 }
