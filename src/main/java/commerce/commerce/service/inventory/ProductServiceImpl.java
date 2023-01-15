@@ -40,9 +40,19 @@ public class ProductServiceImpl implements ProductService {
     public List<Product> getAllAvailibleProducts() {
         return productRepository.getAllAvailibleProducts();
     }
-
-
-
-
+    @Override
+    public void updateQuantity (Long productId, Long quantity) throws Exception {
+        if (productId != null){
+            Product curProduct = productRepository.getProductById(productId);
+            if(curProduct != null){
+                Long quantityToUpdate = curProduct.getQuantity() - 1;
+                productRepository.updateQuantity(productId, quantityToUpdate);
+            }else {
+                throw new Exception(curProduct.getId() + "is not exist");
+            }
+        }else {
+            throw new Exception("request is empty");
+        }
+    }
 }
 

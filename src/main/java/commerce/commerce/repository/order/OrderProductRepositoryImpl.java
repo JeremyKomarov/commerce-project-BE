@@ -47,8 +47,8 @@ public class OrderProductRepositoryImpl implements OrderProductRepository {
 
     @Override
     public List<Product> getAllOrderProductsByCustomerId(Long customerId) {
-        String sql = "SELECT * FROM " + PRODUCTS_TABLE_NAME + " AS P INNER  JOIN " + ORDER_PRODUCTS_TABLE_NAME + " AS OP ON " +
-                "P.id = OP.product_id WHERE OP.customer_id=?";
+        String sql = "SELECT " + PRODUCTS_TABLE_NAME + ".* FROM " + PRODUCTS_TABLE_NAME + " LEFT JOIN " + ORDER_PRODUCTS_TABLE_NAME + " ON " + PRODUCTS_TABLE_NAME +
+                ".id = " + ORDER_PRODUCTS_TABLE_NAME + ".id WHERE " + ORDER_PRODUCTS_TABLE_NAME + ".customer_id =? AND " + ORDER_PRODUCTS_TABLE_NAME + ".order_id IS NULL";
         try {
             return jdbcTemplate.query(sql, new ProductMapper(), customerId);
         } catch (EmptyResultDataAccessException error) {

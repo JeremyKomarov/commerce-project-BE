@@ -11,4 +11,5 @@ public interface ProductService {
     void deleteProductById(Long id);
     List<Product> getAllProducts();
     List<Product> getAllAvailibleProducts();
+    void updateQuantity (Long productId, Long quantity) throws Exception;
 }

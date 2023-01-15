@@ -3,6 +3,7 @@ package commerce.commerce.service.order;
 import commerce.commerce.model.inventory.Product;
 import commerce.commerce.model.order.OrderProduct;
 import commerce.commerce.repository.order.OrderProductRepository;
+import commerce.commerce.service.inventory.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,10 +13,25 @@ import java.util.List;
 public class OrderProductServiceImpl implements OrderProductService {
     @Autowired
     OrderProductRepository orderProductRepository;
+    @Autowired
+    ProductService productService;
 
     @Override
-    public void createOrderProduct(OrderProduct orderProduct) {
-        orderProductRepository.createOrderProduct(orderProduct);
+    public void createOrderProduct(OrderProduct orderProduct) throws Exception {
+        if (orderProduct != null) {
+            Product curProduct = productService.getProductById(orderProduct.getProductId());
+            if (curProduct != null){
+                if (curProduct.getQuantity() > 0){
+                    orderProductRepository.createOrderProduct(orderProduct);
+                }else {
+                    throw new Exception("product is out of stock");
+                }
+            }else {
+                throw new Exception("product id " + curProduct.getId() + " is not exist");
+            }
+        }else {
+            throw new Exception("orderProduct is empty");
+        }
     }
 
     @Override
