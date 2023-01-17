@@ -1,13 +1,11 @@
 package commerce.commerce.service.order;
 
-import commerce.commerce.model.customer.Customer;
 import commerce.commerce.model.order.Order;
 import commerce.commerce.repository.order.OrderRepository;
 import commerce.commerce.service.customer.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -20,10 +18,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public Long createOrder(Order order) {
-        Customer curCustomer = customerService.getCustomerById(order.getCustomerId());
-        Long newOrderId = orderRepository.createOrder(order);
-        orderProductService.updateOrderIdByCustomerId(curCustomer.getId(), newOrderId);
-       return newOrderId;
+       return orderRepository.createOrder(order);
     }
 
     @Override
@@ -40,4 +35,11 @@ public class OrderServiceImpl implements OrderService {
     public void deleteOrderById(Long id) {
         orderRepository.deleteOrderById(id);
     }
+
+    @Override
+    public Order getOpenOrderByCustomerId(Long customerId) {
+        return orderRepository.getOpenOrderByCustomerId(customerId);
+    }
+
+
 }

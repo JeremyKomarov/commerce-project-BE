@@ -9,9 +9,9 @@ public class Order {
     private String shippingAddress;
     private Long totalProducts;
     private Long totalPrice;
-    private OrderStatus status;
+    private String status;
 
-    public Order(Long id, Long customerId, LocalDate orderDate, String shippingAddress, Long totalProducts, Long totalPrice, OrderStatus status) {
+    public Order(Long id, Long customerId, LocalDate orderDate, String shippingAddress, Long totalProducts, Long totalPrice, String status) {
         this.id = id;
         this.customerId = customerId;
         this.orderDate = orderDate;
@@ -45,7 +45,7 @@ public class Order {
         return totalPrice;
     }
 
-    public OrderStatus getStatus() {
+    public String getStatus() {
         return status;
     }
 
@@ -73,7 +73,8 @@ public class Order {
         this.totalPrice = totalPrice;
     }
 
-    public void setStatus(OrderStatus status) {
+    public void setStatus(String status) {
         this.status = status;
     }
+
 }

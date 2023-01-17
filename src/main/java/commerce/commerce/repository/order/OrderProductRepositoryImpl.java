@@ -2,7 +2,9 @@ package commerce.commerce.repository.order;
 
 import commerce.commerce.model.inventory.Product;
 import commerce.commerce.model.order.OrderProduct;
+import commerce.commerce.model.order.OrderProductCount;
 import commerce.commerce.repository.inventory.mapper.ProductMapper;
+import commerce.commerce.repository.order.mapper.OrderProductCountMapper;
 import commerce.commerce.repository.order.mapper.OrderProductMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -21,9 +23,10 @@ public class OrderProductRepositoryImpl implements OrderProductRepository {
 
 
     @Override
-    public void createOrderProduct(OrderProduct orderProduct) {
+    public Long createOrderProduct(OrderProduct orderProduct) {
         String sql = "INSERT INTO " + ORDER_PRODUCTS_TABLE_NAME + " (order_id, customer_id, product_id, quantity, price) VALUES (?, ?, ?, ?, ?)";
         jdbcTemplate.update(sql, orderProduct.getOrderId(), orderProduct.getCustomerId() , orderProduct.getProductId(), orderProduct.getQuantity(), orderProduct.getPrice());
+        return jdbcTemplate.queryForObject("SELECT LAST_INSERT_ID();", Long.class);
     }
 
     @Override
@@ -43,6 +46,8 @@ public class OrderProductRepositoryImpl implements OrderProductRepository {
 
     @Override
     public void deleteOrderProductById(Long id) {
+        String sql = "DELETE FROM " + ORDER_PRODUCTS_TABLE_NAME + " WHERE id=?";
+        jdbcTemplate.update(sql,id);
     }
 
     @Override
@@ -61,5 +66,9 @@ public class OrderProductRepositoryImpl implements OrderProductRepository {
         jdbcTemplate.update(sql, orderId, customerId);
     }
 
-
+    @Override
+    public OrderProductCount countOrderProductWithOrderId(Long orderId) {
+        String sql = "SELECT  order_id, COUNT(*) AS COUNT FROM " + ORDER_PRODUCTS_TABLE_NAME +" WHERE ORDER_ID = ? GROUP BY order_id;";
+        return jdbcTemplate.queryForObject(sql, new OrderProductCountMapper(), orderId);
+    }
 }

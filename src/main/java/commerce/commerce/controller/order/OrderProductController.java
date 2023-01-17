@@ -16,8 +16,8 @@ public class OrderProductController {
     OrderProductService orderProductService;
     @CrossOrigin
     @PostMapping(value = "/create")
-    public void createOrderProduct(@RequestBody OrderProduct orderProduct) throws Exception {
-        orderProductService.createOrderProduct(orderProduct);
+    public Long createOrderProduct(@RequestBody OrderProduct orderProduct) throws Exception {
+        return orderProductService.createOrderProduct(orderProduct);
     }
     @CrossOrigin
     @GetMapping(value = "/{id}")
@@ -32,7 +32,7 @@ public class OrderProductController {
     }
     @CrossOrigin
     @DeleteMapping(value = "/{id}/delete")
-    public void deleteOrderProductById(@PathVariable Long id){
+    public void deleteOrderProductById(@PathVariable Long id) throws Exception {
         orderProductService.deleteOrderProductById(id);
     }
 

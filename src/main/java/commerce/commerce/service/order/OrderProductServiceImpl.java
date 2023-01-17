@@ -1,12 +1,15 @@
 package commerce.commerce.service.order;
 
 import commerce.commerce.model.inventory.Product;
+import commerce.commerce.model.order.Order;
 import commerce.commerce.model.order.OrderProduct;
+import commerce.commerce.model.order.OrderProductCount;
 import commerce.commerce.repository.order.OrderProductRepository;
 import commerce.commerce.service.inventory.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -15,24 +18,37 @@ public class OrderProductServiceImpl implements OrderProductService {
     OrderProductRepository orderProductRepository;
     @Autowired
     ProductService productService;
+    @Autowired
+    OrderService orderService;
 
     @Override
-    public void createOrderProduct(OrderProduct orderProduct) throws Exception {
+    public Long createOrderProduct(OrderProduct orderProduct) throws Exception {
         if (orderProduct != null) {
             Product curProduct = productService.getProductById(orderProduct.getProductId());
-            if (curProduct != null){
-                if (curProduct.getQuantity() > 0){
-                    orderProductRepository.createOrderProduct(orderProduct);
-                }else {
+            if (curProduct != null) {
+                if (curProduct.getQuantity() > 0) {
+                    Order openOrder = orderService.getOpenOrderByCustomerId(orderProduct.getCustomerId());
+                    if (openOrder != null) {
+                        orderProduct.setOrderId(openOrder.getId());
+                        return orderProductRepository.createOrderProduct(orderProduct);
+                    } else {
+                        LocalDate date = LocalDate.now();
+                        Order newOrder = new Order(null, orderProduct.getCustomerId(), date, null,null,null,"OPEN");
+                        Long newOrderId = orderService.createOrder(newOrder);
+                        orderProduct.setOrderId(newOrderId);
+                        return orderProductRepository.createOrderProduct(orderProduct);
+                    }
+                } else {
                     throw new Exception("product is out of stock");
                 }
-            }else {
+            } else {
                 throw new Exception("product id " + curProduct.getId() + " is not exist");
             }
-        }else {
+        } else {
             throw new Exception("orderProduct is empty");
         }
     }
+
 
     @Override
     public OrderProduct getOrderProductById(Long id) {
@@ -45,8 +61,24 @@ public class OrderProductServiceImpl implements OrderProductService {
     }
 
     @Override
-    public void deleteOrderProductById(Long id) {
-        orderProductRepository.deleteOrderProductById(id);
+    public void deleteOrderProductById(Long id) throws Exception {
+        if (id != null){
+            OrderProduct wantedOrderProductToDelete = orderProductRepository.getOrderProductById(id);
+            if (wantedOrderProductToDelete != null){
+                Order openOrder = orderService.getOrderById(wantedOrderProductToDelete.getOrderId());
+                OrderProductCount count = orderProductRepository.countOrderProductWithOrderId(openOrder.getId());
+                if (count.getCount() > 1 ) {
+                    orderProductRepository.deleteOrderProductById(wantedOrderProductToDelete.getId());
+                } if ( count.getCount() == 1) {
+                    orderProductRepository.deleteOrderProductById(wantedOrderProductToDelete.getId());
+                    orderService.deleteOrderById(openOrder.getId());
+                }
+            }else {
+                throw new Exception("no such order product to delete with this id");
+            }
+        }else {
+            throw new Exception("given id is null");
+        }
     }
 
     @Override
@@ -57,6 +89,11 @@ public class OrderProductServiceImpl implements OrderProductService {
     @Override
     public void updateOrderIdByCustomerId(Long customerId, Long orderId) {
         orderProductRepository.updateOrderIdByCustomerId(customerId, orderId);
+    }
+
+    @Override
+    public OrderProductCount countOrderProductWithOrderId(Long orderId) {
+        return orderProductRepository.countOrderProductWithOrderId(orderId);
     }
 
 

@@ -43,4 +43,14 @@ public class OrderRepositoryImpl implements OrderRepository {
         String sql = "DELETE FROM " + ORDERS_TABLE_NAME + " WHERE id=?";
         jdbcTemplate.update(sql,id);
     }
+
+    @Override
+    public Order getOpenOrderByCustomerId(Long customerId) {
+        String sql = "SELECT * FROM " + ORDERS_TABLE_NAME + " WHERE customer_id=? AND status= 'OPEN'";
+        try {
+            return jdbcTemplate.queryForObject(sql, new OrderMapper(), customerId);
+        } catch (EmptyResultDataAccessException error) {
+            return null;
+        }
+    }
 }

@@ -42,10 +42,10 @@ CREATE TABLE favorite_products (
 create TABLE orders (
     id int(11) unsigned NOT NULL AUTO_INCREMENT,
     customer_id int(11) NOT NULL,
-    order_date DATE NOT NULL,
-    shipping_address varchar(max) NOT NULL,
-    total_products int(11) NOT NULL,
-    total_price int(11) NOT NULL,
+    order_date DATE,
+    shipping_address varchar(max),
+    total_products int(11),
+    total_price int(11),
     status varchar(300) DEFAULT 'OPEN',
 
     PRIMARY KEY (id),

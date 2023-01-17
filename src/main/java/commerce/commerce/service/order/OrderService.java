@@ -7,4 +7,5 @@ public interface OrderService {
     Order getOrderById(Long id);
     void updateOrderById(Long id, Order order);
     void deleteOrderById(Long id);
+    Order getOpenOrderByCustomerId(Long customerId);
 }

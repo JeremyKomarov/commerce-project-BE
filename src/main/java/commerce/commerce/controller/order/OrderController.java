@@ -33,4 +33,11 @@ public class OrderController {
     public void deleteOrderById(@PathVariable Long id){
         orderService.deleteOrderById(id);
     }
+
+    @CrossOrigin
+    @GetMapping(value = "/{customerId}/order")
+    public Order getOpenOrderByCustomerId(@PathVariable Long customerId){
+        return orderService.getOpenOrderByCustomerId(customerId);
+    }
+
 }
