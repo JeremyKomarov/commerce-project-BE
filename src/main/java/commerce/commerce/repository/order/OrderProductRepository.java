@@ -11,7 +11,7 @@ public interface OrderProductRepository {
     OrderProduct getOrderProductById(Long id);
     void updateOrderProductById(Long id, OrderProduct orderProduct);
     void deleteOrderProductById(Long id);
-    List<Product> getAllOrderProductsByCustomerId(Long customerId);
+    List<Product> getAllOrderProductsByCustomerId(Long customerId, Long orderId);
     void updateOrderIdByCustomerId(Long customerId, Long orderId);
     OrderProductCount countOrderProductWithOrderId(Long orderId);
 }

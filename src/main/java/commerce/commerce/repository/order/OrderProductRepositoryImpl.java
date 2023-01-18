@@ -51,11 +51,11 @@ public class OrderProductRepositoryImpl implements OrderProductRepository {
     }
 
     @Override
-    public List<Product> getAllOrderProductsByCustomerId(Long customerId) {
+    public List<Product> getAllOrderProductsByCustomerId(Long customerId, Long orderId) {
         String sql = "SELECT " + PRODUCTS_TABLE_NAME + ".* FROM " + PRODUCTS_TABLE_NAME + " LEFT JOIN " + ORDER_PRODUCTS_TABLE_NAME + " ON " + PRODUCTS_TABLE_NAME +
-                ".id = " + ORDER_PRODUCTS_TABLE_NAME + ".id WHERE " + ORDER_PRODUCTS_TABLE_NAME + ".customer_id =? AND " + ORDER_PRODUCTS_TABLE_NAME + ".order_id IS NULL";
+                ".id = " + ORDER_PRODUCTS_TABLE_NAME + ".id WHERE " + ORDER_PRODUCTS_TABLE_NAME + ".customer_id =? AND " + ORDER_PRODUCTS_TABLE_NAME + ".order_id =?";
         try {
-            return jdbcTemplate.query(sql, new ProductMapper(), customerId);
+            return jdbcTemplate.query(sql, new ProductMapper(), customerId, orderId);
         } catch (EmptyResultDataAccessException error) {
             return null;
         }

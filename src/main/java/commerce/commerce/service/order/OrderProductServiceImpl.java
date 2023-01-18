@@ -83,7 +83,13 @@ public class OrderProductServiceImpl implements OrderProductService {
 
     @Override
     public List<Product> getAllOrderProductsByCustomerId(Long customerId) {
-        return orderProductRepository.getAllOrderProductsByCustomerId(customerId);
+        Order openOrder = orderService.getOpenOrderByCustomerId(customerId);
+        if (openOrder != null) {
+            return orderProductRepository.getAllOrderProductsByCustomerId(customerId, openOrder.getId());
+        }else{
+            return null;
+        }
+
     }
 
     @Override
