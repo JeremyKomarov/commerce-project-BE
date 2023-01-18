@@ -24,25 +24,27 @@ public class OrderProductServiceImpl implements OrderProductService {
     @Override
     public Long createOrderProduct(OrderProduct orderProduct) throws Exception {
         if (orderProduct != null) {
-            Product curProduct = productService.getProductById(orderProduct.getProductId());
-            if (curProduct != null) {
-                if (curProduct.getQuantity() > 0) {
+            Product dataProduct = productService.getProductById(orderProduct.getProductId());
+            if (dataProduct != null) {
+                if (dataProduct.getQuantity() > 0) {
                     Order openOrder = orderService.getOpenOrderByCustomerId(orderProduct.getCustomerId());
                     if (openOrder != null) {
                         orderProduct.setOrderId(openOrder.getId());
+                        productService.updateQuantity(dataProduct.getId(),dataProduct.getQuantity() - 1);
                         return orderProductRepository.createOrderProduct(orderProduct);
                     } else {
                         LocalDate date = LocalDate.now();
                         Order newOrder = new Order(null, orderProduct.getCustomerId(), date, null,null,null,"OPEN");
                         Long newOrderId = orderService.createOrder(newOrder);
                         orderProduct.setOrderId(newOrderId);
+                        productService.updateQuantity(dataProduct.getId(),dataProduct.getQuantity() - 1);
                         return orderProductRepository.createOrderProduct(orderProduct);
                     }
                 } else {
                     throw new Exception("product is out of stock");
                 }
             } else {
-                throw new Exception("product id " + curProduct.getId() + " is not exist");
+                throw new Exception("product id " + dataProduct.getId() + " is not exist");
             }
         } else {
             throw new Exception("orderProduct is empty");
@@ -64,12 +66,15 @@ public class OrderProductServiceImpl implements OrderProductService {
     public void deleteOrderProductById(Long id) throws Exception {
         if (id != null){
             OrderProduct wantedOrderProductToDelete = orderProductRepository.getOrderProductById(id);
+            Product dataProduct = productService.getProductById(wantedOrderProductToDelete.getProductId());
             if (wantedOrderProductToDelete != null){
                 Order openOrder = orderService.getOrderById(wantedOrderProductToDelete.getOrderId());
                 OrderProductCount count = orderProductRepository.countOrderProductWithOrderId(openOrder.getId());
                 if (count.getCount() > 1 ) {
+                    productService.updateQuantity(dataProduct.getId(),dataProduct.getQuantity() + 1 );
                     orderProductRepository.deleteOrderProductById(wantedOrderProductToDelete.getId());
                 } if ( count.getCount() == 1) {
+                    productService.updateQuantity(dataProduct.getId(),dataProduct.getQuantity() + 1 );
                     orderProductRepository.deleteOrderProductById(wantedOrderProductToDelete.getId());
                     orderService.deleteOrderById(openOrder.getId());
                 }
