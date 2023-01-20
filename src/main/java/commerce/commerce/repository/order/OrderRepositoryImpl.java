@@ -16,8 +16,8 @@ public class OrderRepositoryImpl implements OrderRepository {
 
     @Override
     public Long createOrder(Order order) {
-        String sql = "INSERT INTO " + ORDERS_TABLE_NAME + " (customer_id, order_date, shipping_address, total_products, total_price, status) VALUES (?, ?, ?, ?, ?, ?)";
-        jdbcTemplate.update(sql, order.getCustomerId(), order.getOrderDate(), order.getShippingAddress(), order.getTotalProducts(), order.getTotalPrice(), order.getStatus());
+        String sql = "INSERT INTO " + ORDERS_TABLE_NAME + " (customer_id, order_date, country, city, phone_number, total_products, total_price, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        jdbcTemplate.update(sql, order.getCustomerId(), order.getOrderDate(), order.getCountry(), order.getCity(), order.getPhoneNumber(), order.getTotalProducts(), order.getTotalPrice(), order.getStatus());
         return jdbcTemplate.queryForObject("SELECT LAST_INSERT_ID();", Long.class);
     }
 
@@ -33,9 +33,9 @@ public class OrderRepositoryImpl implements OrderRepository {
 
     @Override
     public void updateOrderById(Long id, Order order) {
-        String sql = "UPDATE " + ORDERS_TABLE_NAME + " SET customer_id=?, order_date=?, shipping_address=?, total_products=?, total_price=?, status=? " +
+        String sql = "UPDATE " + ORDERS_TABLE_NAME + " SET customer_id=?, order_date=?, country=?, city=?, phone_number=?, total_products=?, total_price=?, status=? " +
                 "WHERE id=?";
-        jdbcTemplate.update(sql, order.getCustomerId(), order.getOrderDate(), order.getShippingAddress(), order.getTotalProducts(), order.getTotalPrice(), order.getStatus(), id);
+        jdbcTemplate.update(sql, order.getCustomerId(), order.getOrderDate(), order.getCountry(), order.getCity(), order.getPhoneNumber(), order.getTotalProducts(), order.getTotalPrice(), order.getStatus(), id);
     }
 
     @Override

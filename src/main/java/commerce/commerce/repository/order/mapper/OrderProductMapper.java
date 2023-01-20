@@ -15,7 +15,7 @@ public class OrderProductMapper implements RowMapper<OrderProduct> {
                 rs.getLong("order_id"),
                 rs.getLong("product_id"),
                 rs.getLong("quantity"),
-                rs.getLong("price")
+                rs.getDouble("price")
         );
     }
 }

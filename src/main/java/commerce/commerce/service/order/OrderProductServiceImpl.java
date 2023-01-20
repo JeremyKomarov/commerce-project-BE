@@ -34,7 +34,7 @@ public class OrderProductServiceImpl implements OrderProductService {
                         return orderProductRepository.createOrderProduct(orderProduct);
                     } else {
                         LocalDate date = LocalDate.now();
-                        Order newOrder = new Order(null, orderProduct.getCustomerId(), date, null,null,null,"OPEN");
+                        Order newOrder = new Order(null, orderProduct.getCustomerId(), date, null,null, null, null,null,"OPEN");
                         Long newOrderId = orderService.createOrder(newOrder);
                         orderProduct.setOrderId(newOrderId);
                         productService.updateQuantity(dataProduct.getId(),dataProduct.getQuantity() - 1);

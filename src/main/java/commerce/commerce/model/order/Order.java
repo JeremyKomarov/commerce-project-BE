@@ -6,16 +6,20 @@ public class Order {
     private Long id;
     private Long customerId;
     private LocalDate orderDate;
-    private String shippingAddress;
+    private String country;
+    private String city;
+    private String phoneNumber;
     private Long totalProducts;
-    private Long totalPrice;
+    private Double totalPrice;
     private String status;
 
-    public Order(Long id, Long customerId, LocalDate orderDate, String shippingAddress, Long totalProducts, Long totalPrice, String status) {
+    public Order(Long id, Long customerId, LocalDate orderDate, String country, String city, String phoneNumber, Long totalProducts, Double totalPrice, String status) {
         this.id = id;
         this.customerId = customerId;
         this.orderDate = orderDate;
-        this.shippingAddress = shippingAddress;
+        this.city = city;
+        this.phoneNumber = phoneNumber;
+        this.country = country;
         this.totalProducts = totalProducts;
         this.totalPrice = totalPrice;
         this.status = status;
@@ -33,15 +37,23 @@ public class Order {
         return orderDate;
     }
 
-    public String getShippingAddress() {
-        return shippingAddress;
+    public String getCountry() {
+        return country;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
     public Long getTotalProducts() {
         return totalProducts;
     }
 
-    public Long getTotalPrice() {
+    public Double getTotalPrice() {
         return totalPrice;
     }
 
@@ -61,15 +73,23 @@ public class Order {
         this.orderDate = orderDate;
     }
 
-    public void setShippingAddress(String shippingAddress) {
-        this.shippingAddress = shippingAddress;
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public void setTotalProducts(Long totalProducts) {
         this.totalProducts = totalProducts;
     }
 
-    public void setTotalPrice(Long totalPrice) {
+    public void setTotalPrice(Double totalPrice) {
         this.totalPrice = totalPrice;
     }
 

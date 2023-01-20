@@ -66,7 +66,6 @@ public class ProductRepositoryImpl implements ProductRepository {
 
     @Override
     public void updateQuantity (Long productId, Long quantityToUpdate){
-        System.out.println(quantityToUpdate);
         String sql = "UPDATE " + PRODUCTS_TABLE_NAME +" SET quantity = ? WHERE id = ?";
         jdbcTemplate.update(sql, quantityToUpdate, productId);
     }

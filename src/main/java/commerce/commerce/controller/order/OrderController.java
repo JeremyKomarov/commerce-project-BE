@@ -22,10 +22,13 @@ public class OrderController {
     public Order getOrderById(@PathVariable Long id){
         return orderService.getOrderById(id);
     }
+
     @CrossOrigin
     @PutMapping(value = "/{id}/update")
     public void updateOrderById(@PathVariable Long id,
-                                @RequestBody Order order ){
+                                @RequestBody Order order ) throws Exception {
+        System.out.println("controller id" + id);
+        System.out.println("controller order" + order.getId());
         orderService.updateOrderById(id, order);
     }
     @CrossOrigin
@@ -35,7 +38,7 @@ public class OrderController {
     }
 
     @CrossOrigin
-    @GetMapping(value = "/{customerId}/order")
+    @GetMapping(value = "/{customerId}/open")
     public Order getOpenOrderByCustomerId(@PathVariable Long customerId){
         return orderService.getOpenOrderByCustomerId(customerId);
     }

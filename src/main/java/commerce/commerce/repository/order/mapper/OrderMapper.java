@@ -13,9 +13,11 @@ public class OrderMapper implements RowMapper<Order> {
                 rs.getLong("id"),
                 rs.getLong("customer_id"),
                 rs.getDate("order_date").toLocalDate(),
-                rs.getString("shipping_address"),
+                rs.getString("country"),
+                rs.getString("city"),
+                rs.getString("phone_number"),
                 rs.getLong("total_products"),
-                rs.getLong("total_price"),
+                rs.getDouble("total_price"),
                 rs.getString("status")
                 );
     }
