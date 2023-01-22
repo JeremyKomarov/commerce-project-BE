@@ -27,8 +27,6 @@ public class OrderController {
     @PutMapping(value = "/{id}/update")
     public void updateOrderById(@PathVariable Long id,
                                 @RequestBody Order order ) throws Exception {
-        System.out.println("controller id" + id);
-        System.out.println("controller order" + order.getId());
         orderService.updateOrderById(id, order);
     }
     @CrossOrigin

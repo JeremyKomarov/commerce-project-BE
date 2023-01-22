@@ -19,6 +19,7 @@ public class OrderProductRepositoryImpl implements OrderProductRepository {
     private JdbcTemplate jdbcTemplate;
 
     private static final String ORDER_PRODUCTS_TABLE_NAME = "order_products";
+    private static final String ORDER_TABLE_NAME = "orders";
     private static final String PRODUCTS_TABLE_NAME = "products";
 
 
@@ -68,7 +69,16 @@ public class OrderProductRepositoryImpl implements OrderProductRepository {
 
     @Override
     public OrderProductCount countOrderProductWithOrderId(Long orderId) {
-        String sql = "SELECT  order_id, COUNT(*) AS COUNT FROM " + ORDER_PRODUCTS_TABLE_NAME +" WHERE ORDER_ID = ? GROUP BY order_id;";
+        String sql = "SELECT order_id, COUNT(*) AS COUNT FROM " + ORDER_PRODUCTS_TABLE_NAME +" WHERE ORDER_ID = ? GROUP BY order_id;";
         return jdbcTemplate.queryForObject(sql, new OrderProductCountMapper(), orderId);
     }
+
+    @Override
+    public void deleteOrderProductsByCustomerIdWhereOrderIsOpen(Long customerId) {
+        String sql = "DELETE FROM " + ORDER_PRODUCTS_TABLE_NAME + " WHERE order_id IN (SELECT id FROM " + ORDER_TABLE_NAME + " WHERE status = 'OPEN') "
+                + "AND customer_id=?";
+        jdbcTemplate.update(sql,customerId);
+    }
+
+
 }

@@ -37,4 +37,11 @@ public class FavoriteProductServiceImpl implements FavoriteProductService {
     public  List<Product> getAllFavoriteProductsByCustomerId(Long customerId) {
         return favoriteProductRepository.getAllFavoriteProductsByCustomerId(customerId);
     }
+
+    @Override
+    public void deleteAllFavoriteProductsByCustomerId(Long customerId) {
+        favoriteProductRepository.deleteAllFavoriteProductsByCustomerId(customerId);
+    }
+
+
 }

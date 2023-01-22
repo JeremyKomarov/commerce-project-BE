@@ -3,10 +3,10 @@ package commerce.commerce.service.customer;
 import commerce.commerce.model.customer.Customer;
 import commerce.commerce.model.customer.CustomerProfileResponse;
 import commerce.commerce.model.inventory.Product;
-import commerce.commerce.model.order.OrderProduct;
 import commerce.commerce.repository.customer.CustomerRepository;
 import commerce.commerce.service.inventory.ProductService;
 import commerce.commerce.service.order.OrderProductService;
+import commerce.commerce.service.order.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +21,8 @@ public class CustomerServiceImpl implements CustomerService {
     @Autowired
     OrderProductService orderProductService;
     @Autowired
-    ProductService productService;
+    OrderService orderService;
+
 
     @Override
     public void createCustomer(Customer customer) throws Exception {
@@ -53,8 +54,20 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public void deleteCustomerById(Long id) {
-        customerRepository.deleteCustomerById(id);
+    public void deleteCustomerById(Long id) throws Exception {
+        if (id != null){
+            Customer cutsomerToDelete = customerRepository.getCustomerById(id);
+            if (cutsomerToDelete != null){
+                favoriteProductService.deleteAllFavoriteProductsByCustomerId(id);
+                orderProductService.deleteOrderProductsByCustomerIdWhereOrderIsOpen(id);
+                orderService.deleteOrdersByCustomerWhereIsOpen(id);
+                customerRepository.deleteCustomerById(id);
+            }else{
+                throw new Exception("No such customer with this id " + id);
+            }
+        }else {
+            throw new Exception("Id is null");
+        }
     }
 
     @Override

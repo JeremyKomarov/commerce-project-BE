@@ -57,5 +57,10 @@ public class OrderServiceImpl implements OrderService {
         return orderRepository.getOpenOrderByCustomerId(customerId);
     }
 
+    @Override
+    public void deleteOrdersByCustomerWhereIsOpen(Long customerId) {
+        orderRepository.deleteOrdersByCustomerWhereIsOpen(customerId);
+    }
+
 
 }

@@ -58,4 +58,12 @@ public class FavoriteProductRepositoryImpl implements FavoriteProductRepository 
             return null;
         }
     }
+
+    @Override
+    public void deleteAllFavoriteProductsByCustomerId(Long customerId) {
+        String sql = "DELETE FROM " + FAVORITE_PRODUCTS_TABLE_NAME + " WHERE customer_id=?";
+        jdbcTemplate.update(sql, customerId);
+    }
+
+
 }

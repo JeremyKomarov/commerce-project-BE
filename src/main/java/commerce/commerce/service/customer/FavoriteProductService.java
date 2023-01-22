@@ -11,5 +11,6 @@ public interface FavoriteProductService {
     void updateFavoriteProductById(Long id, FavoriteProduct favoriteProduct);
     void deleteFavoriteProductById(Long id);
     List<Product> getAllFavoriteProductsByCustomerId(Long customerId);
+    void deleteAllFavoriteProductsByCustomerId(Long customerId);
 
 }

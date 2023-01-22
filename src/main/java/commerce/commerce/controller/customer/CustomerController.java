@@ -30,7 +30,7 @@ public class CustomerController {
     }
     @CrossOrigin
     @DeleteMapping(value = "/{id}/delete")
-    public void deleteCustomerById(@PathVariable Long id){
+    public void deleteCustomerById(@PathVariable Long id) throws Exception {
         customerService.deleteCustomerById(id);
     }
     @CrossOrigin

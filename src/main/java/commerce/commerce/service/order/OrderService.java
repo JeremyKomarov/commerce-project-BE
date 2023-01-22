@@ -8,4 +8,5 @@ public interface OrderService {
     void updateOrderById(Long id, Order order) throws Exception;
     void deleteOrderById(Long id);
     Order getOpenOrderByCustomerId(Long customerId);
+    void deleteOrdersByCustomerWhereIsOpen(Long customerId);
 }

@@ -107,5 +107,9 @@ public class OrderProductServiceImpl implements OrderProductService {
         return orderProductRepository.countOrderProductWithOrderId(orderId);
     }
 
+    @Override
+    public void deleteOrderProductsByCustomerIdWhereOrderIsOpen(Long customerId) {
+        orderProductRepository.deleteOrderProductsByCustomerIdWhereOrderIsOpen(customerId);
+    }
 
 }
