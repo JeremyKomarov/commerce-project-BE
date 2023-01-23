@@ -1,11 +1,11 @@
 package commerce.commerce.model.customer;
 
-public class FavoriteProduct {
+public class WishlistProduct {
     private Long id;
     private Long customerId;
     private Long ProductId;
 
-    public FavoriteProduct(Long id, Long customerId, Long ProductId) {
+    public WishlistProduct(Long id, Long customerId, Long ProductId) {
         this.id = id;
         this.customerId = customerId;
         this.ProductId = ProductId;

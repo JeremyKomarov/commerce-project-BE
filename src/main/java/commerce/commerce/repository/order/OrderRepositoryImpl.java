@@ -55,8 +55,8 @@ public class OrderRepositoryImpl implements OrderRepository {
     }
 
     @Override
-    public void deleteOrdersByCustomerWhereIsOpen(Long customerId) {
-        String sql = "DELETE FROM " + ORDERS_TABLE_NAME + " WHERE status = 'OPEN' AND customer_id=?";
+    public void deleteOrdersByCustomerId(Long customerId) {
+        String sql = "DELETE FROM " + ORDERS_TABLE_NAME + " WHERE customer_id=?";
         jdbcTemplate.update(sql, customerId);
     }
 }

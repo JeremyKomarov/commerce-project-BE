@@ -8,6 +8,6 @@ public interface OrderRepository {
     void updateOrderById(Long id, Order order);
     void deleteOrderById(Long id);
     Order getOpenOrderByCustomerId(Long customerId);
-    void deleteOrdersByCustomerWhereIsOpen(Long customerId);
+    void deleteOrdersByCustomerId(Long customerId);
 
 }

@@ -108,8 +108,8 @@ public class OrderProductServiceImpl implements OrderProductService {
     }
 
     @Override
-    public void deleteOrderProductsByCustomerIdWhereOrderIsOpen(Long customerId) {
-        orderProductRepository.deleteOrderProductsByCustomerIdWhereOrderIsOpen(customerId);
+    public void deleteOrderProductsByCustomerId(Long customerId) {
+        orderProductRepository.deleteOrderProductsByCustomerId(customerId);
     }
 
 }

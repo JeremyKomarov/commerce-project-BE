@@ -1,15 +1,15 @@
 package commerce.commerce.repository.customer.mapper;
 
-import commerce.commerce.model.customer.FavoriteProduct;
+import commerce.commerce.model.customer.WishlistProduct;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class FavoriteProductMapper implements RowMapper<FavoriteProduct> {
+public class WishlistProductMapper implements RowMapper<WishlistProduct> {
     @Override
-    public FavoriteProduct mapRow(ResultSet rs, int rowNum) throws SQLException {
-        return new FavoriteProduct(
+    public WishlistProduct mapRow(ResultSet rs, int rowNum) throws SQLException {
+        return new WishlistProduct(
                 rs.getLong("id"),
                 rs.getLong("customer_id"),
                 rs.getLong("product_id")

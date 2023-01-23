@@ -4,7 +4,6 @@ import commerce.commerce.model.customer.Customer;
 import commerce.commerce.model.customer.CustomerProfileResponse;
 import commerce.commerce.model.inventory.Product;
 import commerce.commerce.repository.customer.CustomerRepository;
-import commerce.commerce.service.inventory.ProductService;
 import commerce.commerce.service.order.OrderProductService;
 import commerce.commerce.service.order.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +16,7 @@ public class CustomerServiceImpl implements CustomerService {
     @Autowired
     CustomerRepository customerRepository;
     @Autowired
-    FavoriteProductService favoriteProductService;
+    WishlistProductService wishlistProductService;
     @Autowired
     OrderProductService orderProductService;
     @Autowired
@@ -58,9 +57,9 @@ public class CustomerServiceImpl implements CustomerService {
         if (id != null){
             Customer cutsomerToDelete = customerRepository.getCustomerById(id);
             if (cutsomerToDelete != null){
-                favoriteProductService.deleteAllFavoriteProductsByCustomerId(id);
-                orderProductService.deleteOrderProductsByCustomerIdWhereOrderIsOpen(id);
-                orderService.deleteOrdersByCustomerWhereIsOpen(id);
+                wishlistProductService.deleteAllWishlistProductsByCustomerId(id);
+                orderProductService.deleteOrderProductsByCustomerId(id);
+                orderService.deleteOrdersByCustomerId(id);
                 customerRepository.deleteCustomerById(id);
             }else{
                 throw new Exception("No such customer with this id " + id);
@@ -82,12 +81,12 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public CustomerProfileResponse getCustomerProfile(String username) {
         Customer curCustomer = customerRepository.getCustomerByUsername(username);
-        List<Product> curFavoriteProducts = favoriteProductService.getAllFavoriteProductsByCustomerId(curCustomer.getId());
+        List<Product> curWishlistProducts = wishlistProductService.getAllWishlistProductsByCustomerId(curCustomer.getId());
         List<Product> curCartProducts = orderProductService.getAllOrderProductsByCustomerId(curCustomer.getId());
 
         CustomerProfileResponse existCustomerProfile = new CustomerProfileResponse(
                 curCustomer,
-                curFavoriteProducts,
+                curWishlistProducts,
                 curCartProducts
         );
         return existCustomerProfile;

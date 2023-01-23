@@ -6,12 +6,12 @@ import java.util.List;
 
 public class CustomerProfileResponse {
     private Customer customer;
-    private List<Product> favoriteProducts;
+    private List<Product> wishlistProducts;
     private List<Product> cartProducts;
 
-    public CustomerProfileResponse(Customer customer, List<Product> favoriteProducts, List<Product> cartProducts) {
+    public CustomerProfileResponse(Customer customer, List<Product> wishlistProducts, List<Product> cartProducts) {
         this.customer = customer;
-        this.favoriteProducts = favoriteProducts;
+        this.wishlistProducts = wishlistProducts;
         this.cartProducts = cartProducts;
     }
 
@@ -19,8 +19,8 @@ public class CustomerProfileResponse {
         return customer;
     }
 
-    public List<Product> getFavoriteProducts() {
-        return favoriteProducts;
+    public List<Product> getWishlistProducts() {
+        return wishlistProducts;
     }
 
     public List<Product> getCartProducts() {
@@ -31,8 +31,8 @@ public class CustomerProfileResponse {
         this.customer = customer;
     }
 
-    public void setFavoriteProducts(List<Product> products) {
-        this.favoriteProducts = products;
+    public void setWishlistProducts(List<Product> products) {
+        this.wishlistProducts = products;
     }
 
     public void setCartProducts(List<Product> cartProducts) {

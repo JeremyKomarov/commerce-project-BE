@@ -14,6 +14,6 @@ public interface OrderProductRepository {
     List<Product> getAllOrderProductsByCustomerId(Long customerId, Long orderId);
     void updateOrderIdByCustomerId(Long customerId, Long orderId);
     OrderProductCount countOrderProductWithOrderId(Long orderId);
-    void deleteOrderProductsByCustomerIdWhereOrderIsOpen(Long customerId);
+    void deleteOrderProductsByCustomerId(Long customerId);
 
 }

@@ -1,6 +1,6 @@
 DROP TABLE IF EXISTS customers;
 DROP TABLE IF EXISTS products;
-DROP TABLE IF EXISTS favorite_products;
+DROP TABLE IF EXISTS wish_list;
 DROP TABLE IF EXISTS orders;
 DROP TABLE IF EXISTS order_products;
 
@@ -29,7 +29,7 @@ CREATE TABLE products (
     PRIMARY KEY (id)
 );
 
-CREATE TABLE favorite_products (
+CREATE TABLE wish_list (
     id int(11) unsigned NOT NULL AUTO_INCREMENT,
     customer_id int(11) NOT NULL,
     product_id int(11) NOT NULL,
@@ -84,7 +84,7 @@ INSERT INTO products (name, view_description, full_description, price, img, quan
     ('Gilbert High 5 Netball', 'The Gilbert High 5 ball is an entry level', 'The Gilbert High 5 ball is an entry level ball for children aged between 9-11 years. Only available in a size 4 and is designed for use in schools.' , 9.50, 'https://www.sportsballshop.co.uk/acatalog/GilbertHigh5NETBALL.jpg', 15),
     ('Mitre Oasis Training Netball', 'The Mitre Oasis Training Netball is a great value', 'The Mitre Oasis Training Netball is a greta value entry level netball that is suitable for use on all surfaces. The Oasis is a rubber netball and is available in 2 colours - Pink and Orange. These balls are currently only available in size 5.' , 13.50, 'https://www.sportsballshop.co.uk/acatalog/Oasis-Orange.jpg', 0);
 
-INSERT INTO favorite_products (customer_id, product_id) VALUES
+INSERT INTO wish_list (customer_id, product_id) VALUES
     (1, 1),
     (1, 2),
     (2, 1);
