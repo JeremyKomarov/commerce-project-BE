@@ -22,13 +22,13 @@ public class WishlistProductRepositoryImpl implements WishlistProductRepository 
 
     @Override
     public void createWishlistProduct(WishlistProduct wishlistProduct) {
-        String sql = "INSERT INTO " + PRODUCTS_TABLE_NAME + " (customer_id, product_id) VALUES (?, ?)";
+        String sql = "INSERT INTO " + WISHLIST_PRODUCTS_TABLE_NAME + " (customer_id, product_id) VALUES (?, ?)";
         jdbcTemplate.update(sql, wishlistProduct.getCustomerId(), wishlistProduct.getProductId());
     }
 
     @Override
     public WishlistProduct getWishlistProductById(Long id) {
-        String sql = "SELECT * FROM " + PRODUCTS_TABLE_NAME + " WHERE id=?";
+        String sql = "SELECT * FROM " + WISHLIST_PRODUCTS_TABLE_NAME + " WHERE id=?";
         try {
             return jdbcTemplate.queryForObject(sql, new WishlistProductMapper(), id);
         } catch (EmptyResultDataAccessException error) {
@@ -38,13 +38,13 @@ public class WishlistProductRepositoryImpl implements WishlistProductRepository 
 
     @Override
     public void updateWishlistProductById(Long id, WishlistProduct wishlistProduct) {
-        String sql = "UPDATE " + PRODUCTS_TABLE_NAME + " SET customer_id=?, product_id=? WHERE id=?";
+        String sql = "UPDATE " + WISHLIST_PRODUCTS_TABLE_NAME + " SET customer_id=?, product_id=? WHERE id=?";
         jdbcTemplate.update(sql, wishlistProduct.getCustomerId(), wishlistProduct.getProductId(), id);
     }
 
     @Override
     public void deleteWishlistProductById(Long id) {
-        String sql = "DELETE FROM " + PRODUCTS_TABLE_NAME + " WHERE id=?";
+        String sql = "DELETE FROM " + WISHLIST_PRODUCTS_TABLE_NAME + " WHERE id=?";
         jdbcTemplate.update(sql, id);
     }
 
@@ -61,7 +61,7 @@ public class WishlistProductRepositoryImpl implements WishlistProductRepository 
 
     @Override
     public void deleteAllWishlistProductsByCustomerId(Long customerId) {
-        String sql = "DELETE FROM " + PRODUCTS_TABLE_NAME + " WHERE customer_id=?";
+        String sql = "DELETE FROM " + WISHLIST_PRODUCTS_TABLE_NAME + " WHERE customer_id=?";
         jdbcTemplate.update(sql, customerId);
     }
 
