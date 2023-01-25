@@ -61,7 +61,7 @@ public class WishlistProductRepositoryImpl implements WishlistProductRepository 
 
     @Override
     public void deleteAllWishlistProductsByCustomerId(Long customerId) {
-        String sql = "DELETE FROM " + PRODUCTS_TABLE_NAME + " WHERE customer_id=?";
+        String sql = "DELETE FROM " + WISHLIST_PRODUCTS_TABLE_NAME + " WHERE customer_id=?";
         jdbcTemplate.update(sql, customerId);
     }
 
