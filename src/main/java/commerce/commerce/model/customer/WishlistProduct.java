@@ -3,12 +3,12 @@ package commerce.commerce.model.customer;
 public class WishlistProduct {
     private Long id;
     private Long customerId;
-    private Long ProductId;
+    private Long productId;
 
-    public WishlistProduct(Long id, Long customerId, Long ProductId) {
+    public WishlistProduct(Long id, Long customerId, Long productId) {
         this.id = id;
         this.customerId = customerId;
-        this.ProductId = ProductId;
+        this.productId = productId;
     }
 
     public Long getId() {
@@ -20,7 +20,7 @@ public class WishlistProduct {
     }
 
     public Long getProductId() {
-        return ProductId;
+        return productId;
     }
 
     public void setId(Long id) {
@@ -31,8 +31,8 @@ public class WishlistProduct {
         this.customerId = customerId;
     }
 
-    public void setProductId(Long ProductId) {
-        this.ProductId = ProductId;
+    public void setProductId(Long productId) {
+        this.productId = productId;
     }
 }
 

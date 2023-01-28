@@ -1,11 +1,16 @@
 package commerce.commerce.service.order;
 
 import commerce.commerce.model.customer.Customer;
+import commerce.commerce.model.inventory.Product;
 import commerce.commerce.model.order.Order;
+import commerce.commerce.model.order.OrderList;
 import commerce.commerce.repository.order.OrderRepository;
 import commerce.commerce.service.customer.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Service
@@ -58,9 +63,40 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public List<Order> getClosedOrderByCustomerId(Long customerId) {
+        return orderRepository.getClosedOrderByCustomerId(customerId);
+    }
+
+
+    @Override
     public void deleteOrdersByCustomerId(Long customerId) {
         orderRepository.deleteOrdersByCustomerId(customerId);
     }
 
+    @Override
+    public List<OrderList> getOrderListsByCustomerId(Long customerId) throws Exception {
+        if (customerId != null){
+            Customer curCustomer = customerService.getCustomerById(customerId);
+            if (curCustomer != null){
+                List<OrderList> orderListsToResponse = new ArrayList<>();
+                List<Order> orders = orderRepository.getClosedOrderByCustomerId(customerId);
+                if (orders != null && !orders.isEmpty()){
+                    for (int i = 0 ; i < orders.size(); i ++){
+                        OrderList curOrderList = new OrderList();
+                        curOrderList.setOrder(orders.get(i));
+                        curOrderList.setProducts(orderProductService.getAllOrderProductsByOrderId(curOrderList.getOrder().getId()));
+                        orderListsToResponse.add(curOrderList);
+                    }
+                    return orderListsToResponse;
+                }else {
+                    return orderListsToResponse;
+                }
+            }else {
+                throw new Exception("customer with this id not exist");
+            }
+        }else {
+            throw new Exception("no customer id");
+        }
+    }
 
 }

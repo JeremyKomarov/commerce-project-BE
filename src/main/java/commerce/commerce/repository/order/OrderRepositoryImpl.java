@@ -7,6 +7,8 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public class OrderRepositoryImpl implements OrderRepository {
     private static final String ORDERS_TABLE_NAME = "orders";
@@ -53,6 +55,17 @@ public class OrderRepositoryImpl implements OrderRepository {
             return null;
         }
     }
+
+    @Override
+    public List<Order> getClosedOrderByCustomerId(Long customerId) {
+        String sql = "SELECT * FROM " + ORDERS_TABLE_NAME + " WHERE customer_id=? AND status= 'CLOSED'";
+        try {
+            return jdbcTemplate.query(sql, new OrderMapper(), customerId);
+        } catch (EmptyResultDataAccessException error) {
+            return null;
+        }
+    }
+
 
     @Override
     public void deleteOrdersByCustomerId(Long customerId) {

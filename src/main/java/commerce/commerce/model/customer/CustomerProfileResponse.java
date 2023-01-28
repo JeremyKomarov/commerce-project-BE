@@ -1,41 +1,53 @@
 package commerce.commerce.model.customer;
 
-import commerce.commerce.model.inventory.Product;
+import commerce.commerce.model.inventory.ProductResponse;
+import commerce.commerce.model.order.OrderList;
 
 import java.util.List;
 
 public class CustomerProfileResponse {
     private Customer customer;
-    private List<Product> wishlistProducts;
-    private List<Product> cartProducts;
+    private List<ProductResponse> wishlistProducts;
+    private List<ProductResponse> cartProducts;
+    private List<OrderList> orderLists;
 
-    public CustomerProfileResponse(Customer customer, List<Product> wishlistProducts, List<Product> cartProducts) {
+    public CustomerProfileResponse(Customer customer, List<ProductResponse> wishlistProducts, List<ProductResponse> cartProducts, List<OrderList> orderLists) {
         this.customer = customer;
         this.wishlistProducts = wishlistProducts;
         this.cartProducts = cartProducts;
+        this.orderLists = orderLists;
+
     }
 
     public Customer getCustomer() {
         return customer;
     }
 
-    public List<Product> getWishlistProducts() {
+    public List<ProductResponse> getWishlistProducts() {
         return wishlistProducts;
     }
 
-    public List<Product> getCartProducts() {
+    public List<ProductResponse> getCartProducts() {
         return cartProducts;
+    }
+
+    public List<OrderList> getOrderLists() {
+        return orderLists;
     }
 
     public void setCustomer(Customer customer) {
         this.customer = customer;
     }
 
-    public void setWishlistProducts(List<Product> products) {
+    public void setWishlistProducts(List<ProductResponse> products) {
         this.wishlistProducts = products;
     }
 
-    public void setCartProducts(List<Product> cartProducts) {
+    public void setCartProducts(List<ProductResponse> cartProducts) {
         this.cartProducts = cartProducts;
+    }
+
+    public void setOrderLists(List<OrderList> orderLists) {
+        this.orderLists = orderLists;
     }
 }

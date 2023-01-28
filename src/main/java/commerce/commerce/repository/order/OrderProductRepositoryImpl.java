@@ -1,9 +1,11 @@
 package commerce.commerce.repository.order;
 
 import commerce.commerce.model.inventory.Product;
+import commerce.commerce.model.inventory.ProductResponse;
 import commerce.commerce.model.order.OrderProduct;
 import commerce.commerce.model.order.OrderProductCount;
 import commerce.commerce.repository.inventory.mapper.ProductMapper;
+import commerce.commerce.repository.inventory.mapper.ProductResponseMapper;
 import commerce.commerce.repository.order.mapper.OrderProductCountMapper;
 import commerce.commerce.repository.order.mapper.OrderProductMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,15 +54,28 @@ public class OrderProductRepositoryImpl implements OrderProductRepository {
     }
 
     @Override
-    public List<Product> getAllOrderProductsByCustomerId(Long customerId, Long orderId) {
-        String sql = "SELECT " + PRODUCTS_TABLE_NAME + ".* FROM " + PRODUCTS_TABLE_NAME + " LEFT JOIN " + ORDER_PRODUCTS_TABLE_NAME + " ON " + PRODUCTS_TABLE_NAME +
-                ".id = " + ORDER_PRODUCTS_TABLE_NAME + ".id WHERE " + ORDER_PRODUCTS_TABLE_NAME + ".customer_id =? AND " + ORDER_PRODUCTS_TABLE_NAME + ".order_id =?";
+    public List<ProductResponse> getAllOrderProductsByCustomerId(Long customerId, Long orderId) {
+        String sql = "SELECT " + PRODUCTS_TABLE_NAME + ".*, " + ORDER_PRODUCTS_TABLE_NAME + ".id as indexId FROM " + PRODUCTS_TABLE_NAME +
+                " INNER JOIN " + ORDER_PRODUCTS_TABLE_NAME + " ON " + PRODUCTS_TABLE_NAME + ".id = " + ORDER_PRODUCTS_TABLE_NAME + ".product_id" +
+                " WHERE " + ORDER_PRODUCTS_TABLE_NAME + ".customer_id =? AND " + ORDER_PRODUCTS_TABLE_NAME + ".order_id=?";
         try {
-            return jdbcTemplate.query(sql, new ProductMapper(), customerId, orderId);
+            return jdbcTemplate.query(sql, new ProductResponseMapper(), customerId, orderId);
         } catch (EmptyResultDataAccessException error) {
             return null;
         }
     }
+
+    @Override
+    public List<Product> getAllOrderProductsByOrderId(Long orderId) {
+        String sql = "SELECT p.* FROM " + ORDER_PRODUCTS_TABLE_NAME + " op JOIN " + PRODUCTS_TABLE_NAME + " p ON op.product_id = p.id " +
+                " WHERE op.order_id=?";
+        try {
+            return jdbcTemplate.query(sql, new ProductMapper(), orderId);
+        } catch (EmptyResultDataAccessException error) {
+            return null;
+        }
+    }
+
 
     public void updateOrderIdByCustomerId(Long customerId, Long orderId) {
         String sql = "UPDATE " + ORDER_PRODUCTS_TABLE_NAME +" SET order_id = ? WHERE customer_id = ?";
@@ -78,6 +93,4 @@ public class OrderProductRepositoryImpl implements OrderProductRepository {
         String sql = "DELETE FROM " + ORDER_PRODUCTS_TABLE_NAME + " WHERE customer_id=?";
         jdbcTemplate.update(sql,customerId);
     }
-
-
 }

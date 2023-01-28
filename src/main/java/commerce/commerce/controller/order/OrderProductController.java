@@ -1,6 +1,7 @@
 package commerce.commerce.controller.order;
 
 import commerce.commerce.model.inventory.Product;
+import commerce.commerce.model.inventory.ProductResponse;
 import commerce.commerce.model.order.OrderProduct;
 import commerce.commerce.service.order.OrderProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +39,7 @@ public class OrderProductController {
 
     @CrossOrigin
     @GetMapping(value = "/{customerId}/all")
-    public List<Product> getAllOrderProductsByCustomerId(@PathVariable Long customerId){
+    public List<ProductResponse> getAllOrderProductsByCustomerId(@PathVariable Long customerId){
         return orderProductService.getAllOrderProductsByCustomerId(customerId);
     }
 }

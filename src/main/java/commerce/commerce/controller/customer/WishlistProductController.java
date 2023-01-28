@@ -1,6 +1,7 @@
 package commerce.commerce.controller.customer;
 
 import commerce.commerce.model.customer.WishlistProduct;
+import commerce.commerce.model.inventory.ProductResponse;
 import commerce.commerce.service.customer.WishlistProductService;
 import commerce.commerce.model.inventory.Product;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +16,8 @@ public class WishlistProductController {
     WishlistProductService wishlistProductService;
     @CrossOrigin
     @PostMapping(value = "/create")
-    public void createWishlistProductProduct(@RequestBody WishlistProduct wishlistProduct){
-        wishlistProductService.createWishlistProduct(wishlistProduct);
+    public Long createWishlistProductProduct(@RequestBody WishlistProduct wishlistProduct) throws Exception {
+        return wishlistProductService.createWishlistProduct(wishlistProduct);
     }
     @CrossOrigin
     @GetMapping(value = "/{id}")
@@ -36,7 +37,7 @@ public class WishlistProductController {
     }
     @CrossOrigin
     @GetMapping(value = "/{customerId}/all")
-    public List<Product> getAllWishlistProductsByCustomerId(@PathVariable Long customerId){
+    public List<ProductResponse> getAllWishlistProductsByCustomerId(@PathVariable Long customerId){
         return wishlistProductService.getAllWishlistProductsByCustomerId(customerId);
     }
 }

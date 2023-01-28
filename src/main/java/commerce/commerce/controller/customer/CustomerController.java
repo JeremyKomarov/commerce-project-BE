@@ -47,7 +47,7 @@ public class CustomerController {
 
     @CrossOrigin
     @GetMapping(value = "/profile/{username}")
-    public CustomerProfileResponse getCustomerProfile(@PathVariable String username){
+    public CustomerProfileResponse getCustomerProfile(@PathVariable String username) throws Exception {
         return customerService.getCustomerProfile(username);
     }
 

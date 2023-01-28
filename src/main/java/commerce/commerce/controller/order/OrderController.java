@@ -1,9 +1,12 @@
 package commerce.commerce.controller.order;
 
 import commerce.commerce.model.order.Order;
+import commerce.commerce.model.order.OrderList;
 import commerce.commerce.service.order.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/order")
@@ -39,6 +42,12 @@ public class OrderController {
     @GetMapping(value = "/{customerId}/open")
     public Order getOpenOrderByCustomerId(@PathVariable Long customerId){
         return orderService.getOpenOrderByCustomerId(customerId);
+    }
+
+    @CrossOrigin
+    @GetMapping(value = "/{customerId}/lastOrders")
+    public List<OrderList> getOrderListsByCustomerId(@PathVariable Long customerId) throws Exception {
+        return orderService.getOrderListsByCustomerId(customerId);
     }
 
 }

@@ -1,9 +1,9 @@
 package commerce.commerce.repository.customer;
 
 import commerce.commerce.model.customer.WishlistProduct;
-import commerce.commerce.model.inventory.Product;
+import commerce.commerce.model.inventory.ProductResponse;
 import commerce.commerce.repository.customer.mapper.WishlistProductMapper;
-import commerce.commerce.repository.inventory.mapper.ProductMapper;
+import commerce.commerce.repository.inventory.mapper.ProductResponseMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -21,9 +21,10 @@ public class WishlistProductRepositoryImpl implements WishlistProductRepository 
     JdbcTemplate jdbcTemplate;
 
     @Override
-    public void createWishlistProduct(WishlistProduct wishlistProduct) {
+    public Long createWishlistProduct(WishlistProduct wishlistProduct) {
         String sql = "INSERT INTO " + WISHLIST_PRODUCTS_TABLE_NAME + " (customer_id, product_id) VALUES (?, ?)";
         jdbcTemplate.update(sql, wishlistProduct.getCustomerId(), wishlistProduct.getProductId());
+        return jdbcTemplate.queryForObject("SELECT LAST_INSERT_ID();", Long.class);
     }
 
     @Override
@@ -49,11 +50,12 @@ public class WishlistProductRepositoryImpl implements WishlistProductRepository 
     }
 
     @Override
-    public List<Product> getAllWishlistProductsByCustomerId(Long customerId) {
-        String sql = "SELECT I.id, I.name, I.view_description, I.full_description, I.price, I.img, I.quantity FROM " + WISHLIST_PRODUCTS_TABLE_NAME +
-                " INNER JOIN " + PRODUCTS_TABLE_NAME + " AS I ON product_id = I.id WHERE customer_id=?";
+    public List<ProductResponse> getAllWishlistProductsByCustomerId(Long customerId) {
+        String sql ="SELECT "+ PRODUCTS_TABLE_NAME +".*, " + WISHLIST_PRODUCTS_TABLE_NAME +".id as indexId FROM " + PRODUCTS_TABLE_NAME +
+                " INNER JOIN " + WISHLIST_PRODUCTS_TABLE_NAME + " ON " + PRODUCTS_TABLE_NAME+ ".id = " + WISHLIST_PRODUCTS_TABLE_NAME + ".product_id" +
+                " WHERE " + WISHLIST_PRODUCTS_TABLE_NAME + ".customer_id=?";
         try {
-            return jdbcTemplate.query(sql, new ProductMapper(), customerId);
+            return jdbcTemplate.query(sql, new ProductResponseMapper(), customerId);
         } catch (EmptyResultDataAccessException error) {
             return null;
         }

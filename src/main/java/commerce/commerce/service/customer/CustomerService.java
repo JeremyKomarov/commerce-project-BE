@@ -10,5 +10,5 @@ public interface CustomerService {
     void deleteCustomerById(Long id) throws Exception;
     Customer getCustomerByUsername(String username);
     Customer getCustomerByEmail(String email);
-    CustomerProfileResponse getCustomerProfile(String username);
+    CustomerProfileResponse getCustomerProfile(String username) throws Exception;
 }

@@ -1,6 +1,7 @@
 package commerce.commerce.service.order;
 
 import commerce.commerce.model.inventory.Product;
+import commerce.commerce.model.inventory.ProductResponse;
 import commerce.commerce.model.order.Order;
 import commerce.commerce.model.order.OrderProduct;
 import commerce.commerce.model.order.OrderProductCount;
@@ -87,15 +88,20 @@ public class OrderProductServiceImpl implements OrderProductService {
     }
 
     @Override
-    public List<Product> getAllOrderProductsByCustomerId(Long customerId) {
+    public List<ProductResponse> getAllOrderProductsByCustomerId(Long customerId) {
         Order openOrder = orderService.getOpenOrderByCustomerId(customerId);
         if (openOrder != null) {
             return orderProductRepository.getAllOrderProductsByCustomerId(customerId, openOrder.getId());
         }else{
             return null;
         }
-
     }
+
+    @Override
+    public List<Product> getAllOrderProductsByOrderId(Long orderId) {
+        return orderProductRepository.getAllOrderProductsByOrderId(orderId);
+    }
+
 
     @Override
     public void updateOrderIdByCustomerId(Long customerId, Long orderId) {

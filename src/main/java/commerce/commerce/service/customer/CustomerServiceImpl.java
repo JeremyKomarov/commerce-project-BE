@@ -3,6 +3,8 @@ package commerce.commerce.service.customer;
 import commerce.commerce.model.customer.Customer;
 import commerce.commerce.model.customer.CustomerProfileResponse;
 import commerce.commerce.model.inventory.Product;
+import commerce.commerce.model.inventory.ProductResponse;
+import commerce.commerce.model.order.OrderList;
 import commerce.commerce.repository.customer.CustomerRepository;
 import commerce.commerce.service.order.OrderProductService;
 import commerce.commerce.service.order.OrderService;
@@ -79,15 +81,17 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public CustomerProfileResponse getCustomerProfile(String username) {
+    public CustomerProfileResponse getCustomerProfile(String username) throws Exception {
         Customer curCustomer = customerRepository.getCustomerByUsername(username);
-        List<Product> curWishlistProducts = wishlistProductService.getAllWishlistProductsByCustomerId(curCustomer.getId());
-        List<Product> curCartProducts = orderProductService.getAllOrderProductsByCustomerId(curCustomer.getId());
+        List<ProductResponse> curWishlistProducts = wishlistProductService.getAllWishlistProductsByCustomerId(curCustomer.getId());
+        List<ProductResponse> curCartProducts = orderProductService.getAllOrderProductsByCustomerId(curCustomer.getId());
+        List<OrderList> curOrderList = orderService.getOrderListsByCustomerId(curCustomer.getId());
 
         CustomerProfileResponse existCustomerProfile = new CustomerProfileResponse(
                 curCustomer,
                 curWishlistProducts,
-                curCartProducts
+                curCartProducts,
+                curOrderList
         );
         return existCustomerProfile;
     }
