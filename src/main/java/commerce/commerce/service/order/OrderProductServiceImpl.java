@@ -5,6 +5,7 @@ import commerce.commerce.model.inventory.ProductResponse;
 import commerce.commerce.model.order.Order;
 import commerce.commerce.model.order.OrderProduct;
 import commerce.commerce.model.order.OrderProductCount;
+import commerce.commerce.model.order.OrderStatus;
 import commerce.commerce.repository.order.OrderProductRepository;
 import commerce.commerce.service.inventory.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +36,7 @@ public class OrderProductServiceImpl implements OrderProductService {
                         return orderProductRepository.createOrderProduct(orderProduct);
                     } else {
                         LocalDate date = LocalDate.now();
-                        Order newOrder = new Order(null, orderProduct.getCustomerId(), date, null,null, null, null,null,"OPEN");
+                        Order newOrder = new Order(null, orderProduct.getCustomerId(), date, null,null, null, null,null, OrderStatus.OPEN);
                         Long newOrderId = orderService.createOrder(newOrder);
                         orderProduct.setOrderId(newOrderId);
                         productService.updateQuantity(dataProduct.getId(),dataProduct.getQuantity() - 1);

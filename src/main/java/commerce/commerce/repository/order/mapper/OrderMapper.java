@@ -1,6 +1,7 @@
 package commerce.commerce.repository.order.mapper;
 
 import commerce.commerce.model.order.Order;
+import commerce.commerce.model.order.OrderStatus;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
@@ -18,7 +19,7 @@ public class OrderMapper implements RowMapper<Order> {
                 rs.getString("phone_number"),
                 rs.getLong("total_products"),
                 rs.getDouble("total_price"),
-                rs.getString("status")
+                OrderStatus.valueOf(rs.getString("status"))
                 );
     }
 }

@@ -1,9 +1,9 @@
 package commerce.commerce.service.order;
 
 import commerce.commerce.model.customer.Customer;
-import commerce.commerce.model.inventory.Product;
 import commerce.commerce.model.order.Order;
 import commerce.commerce.model.order.OrderList;
+import commerce.commerce.model.order.OrderStatus;
 import commerce.commerce.repository.order.OrderRepository;
 import commerce.commerce.service.customer.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,8 +38,8 @@ public class OrderServiceImpl implements OrderService {
             Customer existCustomer = customerService.getCustomerById(order.getCustomerId());
             if (existCustomer != null){
                 Order curOrder = orderRepository.getOpenOrderByCustomerId(existCustomer.getId());
-                if(curOrder.getStatus().equals("OPEN")){
-                    order.setStatus("CLOSED");
+                if(curOrder.getStatus().equals(OrderStatus.OPEN)){
+                    order.setStatus(OrderStatus.CLOSED);
                     orderRepository.updateOrderById(id, order);
                 }else{
                  throw new Exception("Status Already Closed");
