@@ -69,7 +69,7 @@ create TABLE order_products (
 );
 
 INSERT INTO customers (first_name, last_name, email, phone_number, address, username, password) VALUES
-    ('test', 'tester', 'test@gmail.com', '054123654', 'Ramat Gan, Israel', 'test', 'T%y6u7i8');
+    ('test', 'tester', 'test@gmail.com', '054123654', 'Ramat Gan, Israel', 'test', '123456');
 
 INSERT INTO products (name, view_description, full_description, price, img, quantity) VALUES
     ('Mitre Sabre Rugby Ball', 'The Mitre Sabre rugby ball represents amazing value for money', 'The Mitre Sabre rugby ball represents amazing value for money. This attractive rugby ball has a unique design and is suitable for rugby players of all ages and experience levels' , 25.50, 'https://www.sportsballshop.co.uk/acatalog/SabreRedWhite.jpg', 25),
